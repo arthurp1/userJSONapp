@@ -48,7 +48,14 @@ app.get('/signup', (req, res) => {
 	res.render('signup')
 })
 
-// app.post('/signup', (req, res) => {
+app.post('/signup', urlencodedParser, (req, res) => {
+	 if (!req.body) return res.sendStatus(400)
+	 	let inputUser = JSON.stringify(req.body.firstname)
+	 	res.send('thanks for signing up, ' + req.body.firstname)
+	 	
+})
+
+// app.post('/success', jsonParser, (req, res) => {
 // 	fs.readFileSync('users.json', 'utf-8', (err, data) => {
 // 		if (err) throw err
 // 		console.log('readFileSync is called')

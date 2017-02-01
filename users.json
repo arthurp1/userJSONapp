@@ -2,14 +2,14 @@
 	{ 
 		"firstname": "Arthur",
 		"lastname": "Poot",
-		"emailaddress" : "arthur.poot1@gmail.com",
+		"email" : "arthur.poot1@gmail.com",
 		"favfood": "Pasta",
 		"prefday": "Tuesday"
 	},
 	{ 
 		"firstname": "Charles",
 		"lastname": "Whateva",
-		"emailaddress" : "charles_whateva@gmail.com",
+		"email" : "charles_whateva@gmail.com",
 		"favfood": "Pizza",
 		"prefday": "Friday"
 	}
