@@ -1,16 +1,1 @@
-[
-	{ 
-		"firstname": "Arthur",
-		"lastname": "Poot",
-		"email" : "arthur.poot1@gmail.com",
-		"favfood": "Pasta",
-		"prefday": "Tuesday"
-	},
-	{ 
-		"firstname": "Charles",
-		"lastname": "Whateva",
-		"email" : "charles_whateva@gmail.com",
-		"favfood": "Pizza",
-		"prefday": "Friday"
-	}
-]
+[{"firstname":"Arthur","lastname":"Poot","email":"arthur.poot1@gmail.com","favfood":"Pasta","prefday":"Tuesday"},{"firstname":"Charles","lastname":"Whateva","email":"charles_whateva@gmail.com","favfood":"Pizza","prefday":"Friday"},{"firstname":"Boudewijn","lastname":"Rareman","email":"boudewijn@gmail.com","favfood":"Pizza"}]

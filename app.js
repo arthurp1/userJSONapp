@@ -50,50 +50,20 @@ app.get('/signup', (req, res) => {
 
 app.post('/signup', urlencodedParser, (req, res) => {
 	 if (!req.body) return res.sendStatus(400)
-	 	let inputUser = JSON.stringify(req.body.firstname)
 	 	res.send('thanks for signing up, ' + req.body.firstname)
-	 	
+	 	fs.readFile('users.json', 'utf-8', (err, data) => {
+			if (err) throw err
+			const userList = JSON.parse(data)
+		 	const userInput = (req.body)
+		 	userList.push(userInput)
+		 	const userListUpdated = JSON.stringify(userList)
+		 	console.log(userListUpdated)
+		 	fs.writeFileSync('users.json', userListUpdated)
+	})
+
 })
 
-// app.post('/success', jsonParser, (req, res) => {
-// 	fs.readFileSync('users.json', 'utf-8', (err, data) => {
-// 		if (err) throw err
-// 		console.log('readFileSync is called')
-// 		const userList = JSON.parse(data)
-// 		userList.push(userInput)
-// 		const userJSON = JSON.stringify(userList)
-// 		fs.writeFileSync('./users.json', userJSON)
-// 		res.render('signup', { firstname: req.body.firstname })
-// 	})
-// })
 
-
-// original function
-// var fs = require('fs')
-// function appendObject(obj){
-//   var configFile = fs.readFileSync('./config.json')
-//   var config = JSON.parse(configFile)
-//   config.push(obj)
-//   var configJSON = JSON.stringify(config)
-//   fs.writeFileSync('./config.json', configJSON)
-// }
-// appendObject({OnetimeCode : WEAS_Server_NewOneTimeCode})
-
-// <form enctype='application/json'>
-//   <input name='name' value='Bender'>
-//   <select name='hind'>
-//     <option selected>Bitable</option>
-//     <option>Kickable</option>
-//   </select>
-//   <input type='checkbox' name='shiny' checked>
-// </form>
-
-// // produces
-// {
-//   "name":   "Bender"
-// , "hind":   "Bitable"
-// , "shiny":  true
-// }
 
 app.listen(3000, () => {
 	console.log('server started')
