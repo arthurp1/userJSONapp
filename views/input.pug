@@ -1,0 +1,24 @@
+//- route 4: renders a page with three forms on it (first name, last name, and email) that allows you to add new users to the users.json file.
+//- route 5: takes in the post request from the 'create user' form, then adds the user to the users.json file. Once that is complete, redirects to the route that displays all your users (from part 0).
+
+
+html
+	header
+		h1 Please fill in your details
+	body
+		form(enctype='application/json')
+			p your name
+			input(name='name', type='text')
+			p your email address
+			input(name='email', type='email')
+			p Select days you're available next week!
+			input(name='day01', type='checkbox', value='Monday') Monday
+			input(name='day02', type='checkbox', value='Tuesday') Tuesday
+			input(name='day03', type='checkbox', value='Wednesday') Wednesday
+			input(name='day04', type='checkbox', value='Thursday') Thursday
+			input(name='day05', type='checkbox', value='Friday') Friday
+			input(name='day06', type='checkbox', value='Saturday') Saturday
+			input(name='day07', type='checkbox', value='Sunday') Sunday
+			p What is your favourite food?
+			input(name='favvood', type='text')
+			input(type='submit', name='submit', value='submit') Search!

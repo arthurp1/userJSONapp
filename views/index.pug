@@ -1,0 +1,11 @@
+html
+	header
+		title User List
+		link(rel='stylesheet', href='style.css', type='text/css')
+	body
+		h1.user_title Here is a list of users in the db
+		ul.user_list
+			each user in users
+				li.user_item #{user.firstname} #{user.lastname}
+
+
