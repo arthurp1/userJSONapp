@@ -1,39 +1,65 @@
 const express = require('express')
 const fs = require('fs')
 const app = express()
-
+const bodyParser = require('body-parser')
 // serve static assets and set root directory of assets to public
-app.use(express.static('public'))
+
 
 app.set('views', __dirname + '/views')
 app.set('view engine', 'pug')
+app.use(express.static('public'))
 
+
+var urlencodedParser = bodyParser.urlencoded({ extended: true })
+var jsonParser = bodyParser.json()
+ 
 
 app.get('/', (req, res) => {
-	console.log('About to render a pug page')
 	fs.readFile('users.json', 'utf-8', (err, data) => {
 		console.log('readFile is called')
 		if (err) throw err
-		const users = JSON.parse(data) 
+		const users = JSON.parse(data)
+		//res.render('view',[local variables])
 		res.render('index', {users : users})
 	})
 })
 
+app.get('/search', (req, res) => {
+	res.render('search')
+})
+
+app.post('/search', urlencodedParser, (req, res) => {
+	console.log('you searched for:' + JSON.stringify(req.body.name))
+	let inputName = req.body.name
+	fs.readFile('users.json', 'utf-8', (err, data) => {
+		if (err) throw err
+		const users = JSON.parse(data)
+		for (var i = 0; i < users.length; i++) {
+			if (inputName === users[i].firstname) {
+				res.send('yes, we have this user in the database: \n' + users[i].firstname + ' ' + users[i].lastname)
+			}
+		}
+		res.send('no user found with the name: ' + inputName )
+	})
+})
 
 
-// app.get('/input', (req, res) => {
-// 	fs.readFileSync('user.json', 'utf-8', (err, data => {
+app.get('/signup', (req, res) => {
+	res.render('signup')
+})
+
+// app.post('/signup', (req, res) => {
+// 	fs.readFileSync('users.json', 'utf-8', (err, data) => {
 // 		if (err) throw err
-// 		console.log('sync is called')
-// 		const userFile = fs.readFileSync('./user.json')
-// 		const userList = JSON.parse(userFile)
-// 	})) 
- 
-//   config.push(obj)
-//   var configJSON = JSON.stringify(config)
-//   fs.writeFileSync('./config.json', configJSON)
+// 		console.log('readFileSync is called')
+// 		const userList = JSON.parse(data)
+// 		userList.push(userInput)
+// 		const userJSON = JSON.stringify(userList)
+// 		fs.writeFileSync('./users.json', userJSON)
+// 		res.render('signup', { firstname: req.body.firstname })
 // 	})
 // })
+
 
 // original function
 // var fs = require('fs')
