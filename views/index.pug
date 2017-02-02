@@ -1,9 +1,14 @@
 html
 	include includes/head.pug
 	body
-		h1.user_title Here is a list of users in the db
-		ul.user_list
-			each user in users
-				li.user_item #{user.firstname} #{user.lastname}
+		.container
+			.row
+				h1.display-4.m-b-2 People that have signed up so far!
+				ul.user_list
+					each user in users
+						li.user_item #{user.firstname} #{user.lastname}
+				a(href="signup")
+					button.btn.btn-primary Sign-up!
+
 
 

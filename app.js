@@ -2,17 +2,14 @@ const express = require('express')
 const fs = require('fs')
 const app = express()
 const bodyParser = require('body-parser')
-// serve static assets and set root directory of assets to public
 
+const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
 app.set('views', __dirname + '/views')
 app.set('view engine', 'pug')
+
 app.use(express.static('public'))
 
-
-var urlencodedParser = bodyParser.urlencoded({ extended: true })
-var jsonParser = bodyParser.json()
- 
 
 app.get('/', (req, res) => {
 	fs.readFile('users.json', 'utf-8', (err, data) => {
@@ -30,12 +27,14 @@ app.get('/search', (req, res) => {
 
 app.post('/search', urlencodedParser, (req, res) => {
 	console.log('you searched for:' + JSON.stringify(req.body.name))
-	let inputName = req.body.name
+	const inputName = req.body.name
 	fs.readFile('users.json', 'utf-8', (err, data) => {
 		if (err) throw err
 		const users = JSON.parse(data)
 		for (var i = 0; i < users.length; i++) {
 			if (inputName === users[i].firstname) {
+				res.send('yes, we have this user in the database: \n' + users[i].firstname + ' ' + users[i].lastname)
+			} else if (inputName === users[i].lastname) {
 				res.send('yes, we have this user in the database: \n' + users[i].firstname + ' ' + users[i].lastname)
 			}
 		}
@@ -43,7 +42,7 @@ app.post('/search', urlencodedParser, (req, res) => {
 	})
 })
 
-
+console.log('som')
 app.get('/signup', (req, res) => {
 	res.render('signup')
 })
