@@ -15,9 +15,9 @@ app.get('/', (req, res) => {
 	fs.readFile('users.json', 'utf-8', (err, data) => {
 		console.log('readFile is called')
 		if (err) throw err
-		const users = JSON.parse(data)
+		const value = JSON.parse(data)
 		//res.render('view',[local variables])
-		res.render('index', {users : users})
+		res.render('index', {users : value})
 	})
 })
 
@@ -47,9 +47,10 @@ app.get('/signup', (req, res) => {
 	res.render('signup')
 })
 
-app.post('/signup', urlencodedParser, (req, res) => {
+app.post('/success', urlencodedParser, (req, res) => {
 	 if (!req.body) return res.sendStatus(400)
-	 	res.send('thanks for signing up, ' + req.body.firstname)
+	 	// res.send('thanks for signing up, ' + req.body.firstname)
+	 	res.render('success', {newuser : req.body})
 	 	fs.readFile('users.json', 'utf-8', (err, data) => {
 			if (err) throw err
 			const userList = JSON.parse(data)
@@ -61,6 +62,9 @@ app.post('/signup', urlencodedParser, (req, res) => {
 	})
 
 })
+
+// load method loads data from a server and returns it
+// $(selector).load(URL,data,callback);
 
 
 

@@ -8,12 +8,12 @@ html
 		.main.container
 			.row
 				.col-md-6.col-md-offset-3
-					h1.display-4.m-b-2 Sign-up for dinner!
-					form(method='POST')
-						//- for future use action='/succes'
+					h1.display-4.m-b-2 Sign-up for our dinner!
+					form(id="signup")
 						div.form-group
 							label(for='firstname') First name
 							input.form-control(type='text' id='firstname' placeholder='firstname' name='firstname')
+						div.form-group
 							label(for='lastname') Last name
 							input.form-control(type='text' id='lastname' placeholder='lastname' name='lastname')
 						div.form-group
@@ -22,7 +22,9 @@ html
 						div.form-group
 							label(for='favfood') What do you want to eat?
 							input.form-control(type='text' id='favfood' placeholder='favfood' name='favfood')
-						button.btn.btn-primary(type='submit') Let's eat together!
+						button.btn.btn-primary(onClick="validateForm()") Let's eat together!
+						div(id='error')
+			
 
 				//- form(enctype='application/json')
 		//- 	p your name
