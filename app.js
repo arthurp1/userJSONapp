@@ -48,24 +48,34 @@ app.get('/search', (req, res) => {
 	res.render('search')
 })
 
-app.post('/search', urlencodedParser, (req, res) => {
-	console.log('you searched for:' + JSON.stringify(req.body.name))
-	const inputName = req.body.name
-	fs.readFile('users.json', 'utf-8', (err, data) => {
-		if (err) throw err
-		const users = JSON.parse(data)
-		for (var i = 0; i < users.length; i++) {
-			if (inputName === users[i].firstname) {
-				res.send('yes, we have this user in the database: \n' + users[i].firstname + ' ' + users[i].lastname)
-			} else if (inputName === users[i].lastname) {
-				res.send('yes, we have this user in the database: \n' + users[i].firstname + ' ' + users[i].lastname)
-			}
-		}
-		res.send('no user found with the name: ' + inputName )
-	})
-})
+app.post('/search', urlencodedParser, function(req, res) {
+  console.log('you searched for: ' + req.body.name);
+	// indexOf()
+});
 
-console.log('som')
+// app.post('/save', function(req, res) {
+//   console.log(req.body.objectData);
+//   res.contentType('json');
+//   res.send({ some: JSON.stringify({response:'json'}) });
+// });
+
+// app.post('/search', urlencodedParser, (req, res) => {
+// 	console.log('you searched for:' + JSON.stringify(req.body.name))
+// 	const inputName = req.body.name
+// 	fs.readFile('users.json', 'utf-8', (err, data) => {
+// 		if (err) throw err
+// 		const users = JSON.parse(data)
+// 		for (var i = 0; i < users.length; i++) {
+// 			if (inputName === users[i].firstname) {
+// 				res.send('yes, we have this user in the database: \n' + users[i].firstname + ' ' + users[i].lastname)
+// 			} else if (inputName === users[i].lastname) {
+// 				res.send('yes, we have this user in the database: \n' + users[i].firstname + ' ' + users[i].lastname)
+// 			}
+// 		}
+// 		res.send('no user found with the name: ' + inputName )
+// 	})
+// })
+
 app.get('/signup', (req, res) => {
 	res.render('signup')
 })

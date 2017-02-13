@@ -6,6 +6,9 @@ var request = $.ajax({
   dataType: "html"
 });
 
+//form action
+$("#theForm").ajaxForm({url: 'server.php', type: 'post'})
+
 request.done(function( msg ) {
   $( "#log" ).html( msg );
 });

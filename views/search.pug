@@ -7,6 +7,6 @@ html
 	include includes/head.pug
 	body
 		h1 Search for a firstname or lastname
-		form
+		form(id='searchForm')
 			input(id='searchInput',name='name')
-			button(id='searchSubmit',type='submit',formmethod='post') Search!
+			button(id='searchSubmit',type='submit') Search!
