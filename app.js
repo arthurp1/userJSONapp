@@ -1,19 +1,6 @@
-// given an array of values, write a function that finds the index of where the value is located, and if nothing is found, returns -1.
-// example: for ['apple', 'orange', 'pineapple']
-// 'orange' returns '1'
-// 'durian' returns '-1'
-
-// now, write a function that finds all the indexes of where the value is located and returns them in an array, and if nothing is found, returns -1
-// example:
 
 
 // User Information App - AJAX Server
-//
-
-// Hints:
-// you cannot send or render a response more than once per request.
-// you must find a way to capture whenever the user's input changes in the search bar.
-// This will trigger your Ajax request to your server.
 
 // Part 1: Autocomplete Modify your form so that every time the user enters a key, it makes an AJAX call that populates the search results.
 // Do this work in a git branch called "autocomplete". Then, merge this branch into master with a pull request.
@@ -51,7 +38,7 @@ app.get('/search', (req, res) => {
 
 app.post('/search', urlencodedParser, function(req, res) {
 
-		fs.readFile('users.json', 'utf-8', (err, data) => {
+	fs.readFile('users.json', 'utf-8', (err, data) => {
 		console.log('readFile is called')
 		if (err) throw err
 		const userData = JSON.parse(data)
@@ -69,34 +56,32 @@ app.post('/search', urlencodedParser, function(req, res) {
 						matches.push(userData[i][key])
 					}
 				}
-			} return matches.slice(0,5) //return first 5 items
+			} return matches.slice(0,5) //return first 5 suggestions
 		} const matchResults = findMatch(userData)
 
 		// send results to user input
 		res.send(matchResults)
-
-
 	})
 })
 
-		//execute only once for the firs time
-
-		// start after 3 words
-
-		// multiple suggestions
-
-		// only first and last name
-
-			// userList[i].firstname.indexOf(query)
-			// firstNameArray.push((userList[i].firstname).charAt(counter))
-			// lastNameArray.push(userList[i].lastname)
-
-
-		// var index = firstNameArray.indexOf(query)
-		// console.log('index: ' + index)
-		// if (index > -1) {
-		// 	console.log('suggestion: ' + firstNameArray[index] + ' ' + lastNameArray[index])
-		// }
+app.post('/searchresult', urlencodedParser, function(req, res) {
+	fs.readFile('users.json', 'utf-8', (err, data) => {
+		console.log('readFile is called')
+		if (err) throw err
+		const userData = JSON.parse(data)
+		const searchQuery = req.body.name.toLowerCase()
+		console.log('submit: ' + searchQuery)
+		for (var i = 0; i < userData.length; i++) {
+			for (key in userData[i]) {
+				if (userData[i][key].toLowerCase() === searchQuery) {
+					res.send('user found: ' + userData[i].firstname + ' ' + userData[i].lastname)
+				} else {
+					res.send('No user found')
+				}
+			}
+		}
+	})
+})
 
 
 app.get('/signup', (req, res) => {

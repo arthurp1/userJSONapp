@@ -11,7 +11,20 @@ $(document).ready(function(){
         let options = ''
         for (var i = 0; i < data.length; i++) {
           options += '<option value="'+ data[i] +'"/>'
-        } $("#suggestions").html(options)
+        }
+        $('#suggestions').html(options)
+      }
+    })
+  })
+
+  $('#searchSubmit').on('click', function(e){
+    query = $('input')
+    e.preventDefault()
+    $.post({
+      url: '/searchresult',
+      data: query,
+      success: function (data) {
+        $('div.results').html(data)
       }
     })
   })
