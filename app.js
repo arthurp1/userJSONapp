@@ -50,35 +50,30 @@ app.get('/search', (req, res) => {
 })
 
 app.post('/search', urlencodedParser, function(req, res) {
-		fs.readFile('users.json', 'utf-8', (err, data) => {
 
+		fs.readFile('users.json', 'utf-8', (err, data) => {
 		console.log('readFile is called')
 		if (err) throw err
-		const userList = JSON.parse(data)
-		// request
-		const query = req.body.name
-		const counter = req.body.name.length
-		console.log('you searched for: ' + query)
+		const userData = JSON.parse(data)
 
-		// make all lowercase for comparison
+		// request handling
+		const searchQuery = req.body.name.toLowerCase()
+		console.log('You searched for: ' + searchQuery)
 
-		// compare if query is somewhere included in the array
+		// compare if searchQuery is somewhere included in the array
 		function findMatch (data) {
-			for (var i = 0; i < userList.length; i++) {
-				for (key in userList[i]) {
-					if (userList[i][key].indexOf(query) > -1 ) {
-						// console.log(userList[i][key])
-						res.send(userList[i][key])
-						return(userList[i][key])
+			const matches = []
+			for (var i = 0; i < userData.length; i++) {
+				for (key in userData[i]) {
+					if (userData[i][key].toLowerCase().startsWith(searchQuery)) {
+						matches.push(userData[i][key])
 					}
 				}
-			}
-		}
-		const matchResults = findMatch(userList)
-		console.log('Do you mean: ' + matchResults +'?')
+			} return matches.slice(0,5) //return first 5 items
+		} const matchResults = findMatch(userData)
 
 		// send results to user input
-		res.send({matchResults})
+		res.send(matchResults)
 
 
 	})
@@ -104,42 +99,6 @@ app.post('/search', urlencodedParser, function(req, res) {
 		// }
 
 
-
-		// step 2 compare letter by letter with database first or last name
-
-
-
-	// new array item after space
-
-
-
-	//step 3 send data back to form
-	// res.send({autocomplete: name})
-
-
-// app.post('/save', function(req, res) {
-//   console.log(req.body.objectData);
-//   res.contentType('json');
-//   res.send({ some: JSON.stringify({response:'json'}) });
-// });
-
-// app.post('/search', urlencodedParser, (req, res) => {
-// 	console.log('you searched for:' + JSON.stringify(req.body.name))
-// 	const inputName = req.body.name
-// 	fs.readFile('users.json', 'utf-8', (err, data) => {
-// 		if (err) throw err
-// 		const users = JSON.parse(data)
-// 		for (var i = 0; i < users.length; i++) {
-// 			if (inputName === users[i].firstname) {
-// 				res.send('yes, we have this user in the database: \n' + users[i].firstname + ' ' + users[i].lastname)
-// 			} else if (inputName === users[i].lastname) {
-// 				res.send('yes, we have this user in the database: \n' + users[i].firstname + ' ' + users[i].lastname)
-// 			}
-// 		}
-// 		res.send('no user found with the name: ' + inputName )
-// 	})
-// })
-
 app.get('/signup', (req, res) => {
 	res.render('signup')
 })
@@ -159,11 +118,6 @@ app.post('/success', urlencodedParser, (req, res) => {
 	})
 
 })
-
-// load method loads data from a server and returns it
-// $(selector).load(URL,data,callback);
-
-
 
 app.listen(3000, () => {
 	console.log('server started')

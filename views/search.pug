@@ -6,8 +6,14 @@
 html
 	include includes/head.pug
 	body
-		h1 Search for a firstname or lastname
-		form(id='searchForm')
-			input(id='searchInput',name='name')
-			button(id='searchSubmit',type='submit') Search!
-		div.results
+		.main.container
+			.row
+				.col-md-6.col-md-offset-3
+					h1.display-4.m-b-2 Search
+					form(id="searchForm")
+						div.form-group
+							input.form-control(list='suggestions',id='searchInput',name='name', placeholder='Search for a name')
+							datalist(id='suggestions')
+								//- option(value="Yo")
+						div.form-group
+							button.btn.btn-primary(id='searchSubmit',type='submit') Search
