@@ -4,8 +4,8 @@
 // 'durian' returns '-1'
 
 // now, write a function that finds all the indexes of where the value is located and returns them in an array, and if nothing is found, returns -1
-// example: ['apple', 'orange', 'orange', 'pineapple']
-// 'orange' returns [1,2]
+// example:
+
 
 // User Information App - AJAX Server
 //
@@ -46,12 +46,76 @@ app.get('/', (req, res) => {
 
 app.get('/search', (req, res) => {
 	res.render('search')
+
 })
 
 app.post('/search', urlencodedParser, function(req, res) {
-  console.log('you searched for: ' + req.body.name);
-	// indexOf()
-});
+		fs.readFile('users.json', 'utf-8', (err, data) => {
+
+		console.log('readFile is called')
+		if (err) throw err
+		const userList = JSON.parse(data)
+		// request
+		const query = req.body.name
+		const counter = req.body.name.length
+		console.log('you searched for: ' + query)
+
+		// make all lowercase for comparison
+
+		// compare if query is somewhere included in the array
+		function findMatch (data) {
+			for (var i = 0; i < userList.length; i++) {
+				for (key in userList[i]) {
+					if (userList[i][key].indexOf(query) > -1 ) {
+						// console.log(userList[i][key])
+						res.send(userList[i][key])
+						return(userList[i][key])
+					}
+				}
+			}
+		}
+		const matchResults = findMatch(userList)
+		console.log('Do you mean: ' + matchResults +'?')
+
+		// send results to user input
+		res.send({matchResults})
+
+
+	})
+})
+
+		//execute only once for the firs time
+
+		// start after 3 words
+
+		// multiple suggestions
+
+		// only first and last name
+
+			// userList[i].firstname.indexOf(query)
+			// firstNameArray.push((userList[i].firstname).charAt(counter))
+			// lastNameArray.push(userList[i].lastname)
+
+
+		// var index = firstNameArray.indexOf(query)
+		// console.log('index: ' + index)
+		// if (index > -1) {
+		// 	console.log('suggestion: ' + firstNameArray[index] + ' ' + lastNameArray[index])
+		// }
+
+
+
+		// step 2 compare letter by letter with database first or last name
+
+
+
+	// new array item after space
+
+
+
+	//step 3 send data back to form
+	// res.send({autocomplete: name})
+
 
 // app.post('/save', function(req, res) {
 //   console.log(req.body.objectData);

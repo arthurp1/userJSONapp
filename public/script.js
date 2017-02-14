@@ -8,31 +8,23 @@ $(document).ready(function(){
   // })
 
 
-  console.log("javascript is working ")
-    $(document).on('submit', '#searchForm', function(e) {
-      console.log('submit is pressed')
-      $.ajax({
-        url: $(this).attr('action'),
-        type: "POST",
-        data: $(this).serialize(),
-        success: function(html) {
-        console.log('ok');
-      }
-      });
-      e.preventDefault();
-      })
 
-    // $('input').on('input', function(e){
-    //   console.log('key change')
-    // $.post({
-    //   url: '/search',
-    //   data: $(this).serialize(),
-    //   success: function(matchData) {
-    //     console.log('matches found: ' + matchData)
-    //     }
-    //   })
-    //
-    // })
+
+
+  $('input').on('input', function(e){
+    $.post({
+      url: '/search',
+      data: $(this).serialize(),
+      success: function(data) {
+            console.log(data)
+            $("div.results").html('Suggestion: ' + data)
+        }
+      }).fail(function (xhr, textStatus, errorThrown) {
+          xhr.textStatus = textStatus;
+          xhr.errorThrown = errorThrown;
+          console.log('fail',xhr);
+          });
+  })
 
   // request.done(function( msg ) {
   //   console.log( msg );
