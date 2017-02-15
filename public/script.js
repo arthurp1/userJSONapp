@@ -1,11 +1,12 @@
 $(document).ready(function(){
 
 
-// Modify your form again so that AJAX requests happen at most once every 300 milliseconds.
-
+// autocomlete
   $('input').on('input', function(e){
-    $.post({
+    $.ajax({
+      type: "POST",
       url: '/search',
+
       data: $(this).serialize(),
       success: function(data) {
         let options = ''
@@ -17,6 +18,7 @@ $(document).ready(function(){
     })
   })
 
+  // post on button click
   $('#searchSubmit').on('click', function(e){
     query = $('input')
     e.preventDefault()
