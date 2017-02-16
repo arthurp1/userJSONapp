@@ -1,21 +1,25 @@
 $(document).ready(function(){
-
-
 // autocomlete
-  $('input').on('input', function(e){
-    $.ajax({
-      type: "POST",
-      url: '/search',
+var ajaxTimer = 0
 
-      data: $(this).serialize(),
-      success: function(data) {
-        let options = ''
-        for (var i = 0; i < data.length; i++) {
-          options += '<option value="'+ data[i] +'"/>'
-        }
-        $('#suggestions').html(options)
+  $('input').on('input', function(e){
+    if ((ajaxTimer + 1000) < Date.now()) {
+        $.ajax({
+          type: "POST",
+          url: '/search',
+          data: $(this).serialize(),
+          success: function(data) {
+            ajaxTimer = Date.now()
+            var options = ''
+            for (var i = 0; i < data.length; i++) {
+              options += '<option value="'+ data[i] +'"/>'
+            }
+            $('#suggestions').html(options)
+            }
+        })
+      } else {
+        console.log('Jammer Gijs, beter wacht je ff ' + ((ajaxTimer + 1000) - Date.now()) + ' ms')
       }
-    })
   })
 
   // post on button click
@@ -30,4 +34,5 @@ $(document).ready(function(){
       }
     })
   })
+
 })
